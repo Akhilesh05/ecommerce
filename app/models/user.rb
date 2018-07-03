@@ -5,6 +5,11 @@ class User < ApplicationRecord
   before_save :digest_password, if: proc { @password.present? }
   attr_accessor :password
 
+  def as_json(options = {})
+    options[:except] ||= %i[password_digest password_salt]
+    super(options)
+  end
+
   def digest_password
     self.password_salt = SecureRandom.uuid
     digest = Digest::SHA512.new
