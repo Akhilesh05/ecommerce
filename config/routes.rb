@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  resources :images
-  resources :price_changes
-  resources :products
-  resources :brands
+  resources :products do
+    resources :images
+    resources :price_changes
+  end
+
+  resources :brands do
+    resources :products
+  end
+
   resources :users do
     resources :addresses
   end
