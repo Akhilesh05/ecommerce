@@ -52,7 +52,7 @@ RSpec.describe ImagesController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       image = Image.create! valid_attributes
-      get :show, params: {id: image.to_param}, session: valid_session
+      get :show, params: { id: image.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -61,13 +61,17 @@ RSpec.describe ImagesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Image' do
         expect {
-          post :create, params: {image: valid_attributes}, session: valid_session
+          post :create,
+            params: { image: valid_attributes },
+            session: valid_session
         }.to change(Image, :count).by(1)
       end
 
       it 'renders a JSON response with the new image' do
 
-        post :create, params: {image: valid_attributes}, session: valid_session
+        post :create,
+          params: { image: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(image_url(Image.last))
@@ -77,7 +81,9 @@ RSpec.describe ImagesController, type: :controller do
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new image' do
 
-        post :create, params: {image: invalid_attributes}, session: valid_session
+        post :create,
+          params: { image: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +98,9 @@ RSpec.describe ImagesController, type: :controller do
 
       it 'updates the requested image' do
         image = Image.create! valid_attributes
-        put :update, params: {id: image.to_param, image: new_attributes}, session: valid_session
+        put :update,
+          params: { id: image.to_param, image: new_attributes },
+          session: valid_session
         image.reload
         skip('Add assertions for updated state')
       end
@@ -100,7 +108,9 @@ RSpec.describe ImagesController, type: :controller do
       it 'renders a JSON response with the image' do
         image = Image.create! valid_attributes
 
-        put :update, params: {id: image.to_param, image: valid_attributes}, session: valid_session
+        put :update,
+          params: { id: image.to_param, image: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +120,9 @@ RSpec.describe ImagesController, type: :controller do
       it 'renders a JSON response with errors for the image' do
         image = Image.create! valid_attributes
 
-        put :update, params: {id: image.to_param, image: invalid_attributes}, session: valid_session
+        put :update,
+          params: { id: image.to_param, image: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end

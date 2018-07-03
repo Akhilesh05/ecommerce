@@ -52,7 +52,7 @@ RSpec.describe PriceChangesController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       price_change = PriceChange.create! valid_attributes
-      get :show, params: {id: price_change.to_param}, session: valid_session
+      get :show, params: { id: price_change.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -61,13 +61,17 @@ RSpec.describe PriceChangesController, type: :controller do
     context 'with valid params' do
       it 'creates a new PriceChange' do
         expect {
-          post :create, params: {price_change: valid_attributes}, session: valid_session
+          post :create,
+            params: { price_change: valid_attributes },
+            session: valid_session
         }.to change(PriceChange, :count).by(1)
       end
 
       it 'renders a JSON response with the new price_change' do
 
-        post :create, params: {price_change: valid_attributes}, session: valid_session
+        post :create,
+          params: { price_change: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(price_change_url(PriceChange.last))
@@ -77,7 +81,9 @@ RSpec.describe PriceChangesController, type: :controller do
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new price_change' do
 
-        post :create, params: {price_change: invalid_attributes}, session: valid_session
+        post :create,
+          params: { price_change: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +98,9 @@ RSpec.describe PriceChangesController, type: :controller do
 
       it 'updates the requested price_change' do
         price_change = PriceChange.create! valid_attributes
-        put :update, params: {id: price_change.to_param, price_change: new_attributes}, session: valid_session
+        put :update,
+          params: { id: price_change.to_param, price_change: new_attributes },
+          session: valid_session
         price_change.reload
         skip('Add assertions for updated state')
       end
@@ -100,7 +108,12 @@ RSpec.describe PriceChangesController, type: :controller do
       it 'renders a JSON response with the price_change' do
         price_change = PriceChange.create! valid_attributes
 
-        put :update, params: {id: price_change.to_param, price_change: valid_attributes}, session: valid_session
+        put :update,
+          params: {
+            id: price_change.to_param,
+            price_change: valid_attributes
+          },
+          session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +123,12 @@ RSpec.describe PriceChangesController, type: :controller do
       it 'renders a JSON response with errors for the price_change' do
         price_change = PriceChange.create! valid_attributes
 
-        put :update, params: {id: price_change.to_param, price_change: invalid_attributes}, session: valid_session
+        put :update,
+          params: {
+            id: price_change.to_param,
+            price_change: invalid_attributes
+          },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -121,7 +139,9 @@ RSpec.describe PriceChangesController, type: :controller do
     it 'destroys the requested price_change' do
       price_change = PriceChange.create! valid_attributes
       expect {
-        delete :destroy, params: {id: price_change.to_param}, session: valid_session
+        delete :destroy,
+          params: { id: price_change.to_param },
+          session: valid_session
       }.to change(PriceChange, :count).by(-1)
     end
   end

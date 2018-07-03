@@ -52,7 +52,7 @@ RSpec.describe AddressesController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       address = Address.create! valid_attributes
-      get :show, params: {id: address.to_param}, session: valid_session
+      get :show, params: { id: address.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -61,13 +61,17 @@ RSpec.describe AddressesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Address' do
         expect {
-          post :create, params: {address: valid_attributes}, session: valid_session
+          post :create,
+            params: { address: valid_attributes },
+            session: valid_session
         }.to change(Address, :count).by(1)
       end
 
       it 'renders a JSON response with the new address' do
 
-        post :create, params: {address: valid_attributes}, session: valid_session
+        post :create,
+          params: { address: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(address_url(Address.last))
@@ -77,7 +81,9 @@ RSpec.describe AddressesController, type: :controller do
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new address' do
 
-        post :create, params: {address: invalid_attributes}, session: valid_session
+        post :create,
+          params: { address: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +98,9 @@ RSpec.describe AddressesController, type: :controller do
 
       it 'updates the requested address' do
         address = Address.create! valid_attributes
-        put :update, params: {id: address.to_param, address: new_attributes}, session: valid_session
+        put :update,
+          params: { id: address.to_param, address: new_attributes },
+          session: valid_session
         address.reload
         skip('Add assertions for updated state')
       end
@@ -100,7 +108,9 @@ RSpec.describe AddressesController, type: :controller do
       it 'renders a JSON response with the address' do
         address = Address.create! valid_attributes
 
-        put :update, params: {id: address.to_param, address: valid_attributes}, session: valid_session
+        put :update,
+          params: { id: address.to_param, address: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +120,9 @@ RSpec.describe AddressesController, type: :controller do
       it 'renders a JSON response with errors for the address' do
         address = Address.create! valid_attributes
 
-        put :update, params: {id: address.to_param, address: invalid_attributes}, session: valid_session
+        put :update,
+          params: { id: address.to_param, address: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end

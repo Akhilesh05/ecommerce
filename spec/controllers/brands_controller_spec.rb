@@ -52,7 +52,7 @@ RSpec.describe BrandsController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       brand = Brand.create! valid_attributes
-      get :show, params: {id: brand.to_param}, session: valid_session
+      get :show, params: { id: brand.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -61,13 +61,17 @@ RSpec.describe BrandsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Brand' do
         expect {
-          post :create, params: {brand: valid_attributes}, session: valid_session
+          post :create,
+            params: { brand: valid_attributes },
+            session: valid_session
         }.to change(Brand, :count).by(1)
       end
 
       it 'renders a JSON response with the new brand' do
 
-        post :create, params: {brand: valid_attributes}, session: valid_session
+        post :create,
+          params: { brand: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(brand_url(Brand.last))
@@ -77,7 +81,9 @@ RSpec.describe BrandsController, type: :controller do
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new brand' do
 
-        post :create, params: {brand: invalid_attributes}, session: valid_session
+        post :create,
+          params: { brand: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +98,9 @@ RSpec.describe BrandsController, type: :controller do
 
       it 'updates the requested brand' do
         brand = Brand.create! valid_attributes
-        put :update, params: {id: brand.to_param, brand: new_attributes}, session: valid_session
+        put :update,
+          params: { id: brand.to_param, brand: new_attributes },
+          session: valid_session
         brand.reload
         skip('Add assertions for updated state')
       end
@@ -100,7 +108,9 @@ RSpec.describe BrandsController, type: :controller do
       it 'renders a JSON response with the brand' do
         brand = Brand.create! valid_attributes
 
-        put :update, params: {id: brand.to_param, brand: valid_attributes}, session: valid_session
+        put :update,
+          params: { id: brand.to_param, brand: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -110,7 +120,9 @@ RSpec.describe BrandsController, type: :controller do
       it 'renders a JSON response with errors for the brand' do
         brand = Brand.create! valid_attributes
 
-        put :update, params: {id: brand.to_param, brand: invalid_attributes}, session: valid_session
+        put :update,
+          params: { id: brand.to_param, brand: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end

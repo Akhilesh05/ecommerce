@@ -52,7 +52,7 @@ RSpec.describe ProductsController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       product = Product.create! valid_attributes
-      get :show, params: {id: product.to_param}, session: valid_session
+      get :show, params: { id: product.to_param }, session: valid_session
       expect(response).to be_success
     end
   end
@@ -61,13 +61,17 @@ RSpec.describe ProductsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Product' do
         expect {
-          post :create, params: {product: valid_attributes}, session: valid_session
+          post :create,
+            params: { product: valid_attributes },
+            session: valid_session
         }.to change(Product, :count).by(1)
       end
 
       it 'renders a JSON response with the new product' do
 
-        post :create, params: {product: valid_attributes}, session: valid_session
+        post :create,
+          params: { product: valid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(product_url(Product.last))
@@ -77,7 +81,9 @@ RSpec.describe ProductsController, type: :controller do
     context 'with invalid params' do
       it 'renders a JSON response with errors for the new product' do
 
-        post :create, params: {product: invalid_attributes}, session: valid_session
+        post :create,
+          params: { product: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -92,7 +98,9 @@ RSpec.describe ProductsController, type: :controller do
 
       it 'updates the requested product' do
         product = Product.create! valid_attributes
-        put :update, params: {id: product.to_param, product: new_attributes}, session: valid_session
+        put :update,
+          params: { id: product.to_param, product: new_attributes },
+          session: valid_session
         product.reload
         skip('Add assertions for updated state')
       end
@@ -110,7 +118,9 @@ RSpec.describe ProductsController, type: :controller do
       it 'renders a JSON response with errors for the product' do
         product = Product.create! valid_attributes
 
-        put :update, params: {id: product.to_param, product: invalid_attributes}, session: valid_session
+        put :update,
+          params: { id: product.to_param, product: invalid_attributes },
+          session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -121,7 +131,9 @@ RSpec.describe ProductsController, type: :controller do
     it 'destroys the requested product' do
       product = Product.create! valid_attributes
       expect {
-        delete :destroy, params: {id: product.to_param}, session: valid_session
+        delete :destroy,
+          params: { id: product.to_param },
+          session: valid_session
       }.to change(Product, :count).by(-1)
     end
   end
