@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   has_many :addresses, dependent: :destroy
   before_save :digest_password, if: proc { @password.present? }
-  attr_accessor :password, :password
+  attr_accessor :password
 
   def digest_password
     self.password_salt = SecureRandom.uuid
