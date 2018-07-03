@@ -7,7 +7,7 @@ RSpec.describe ImagesController, type: :routing do
     end
 
     it 'routes to #show' do
-      expect(get: '/images/1').to route_to('images#show', :id => '1')
+      expect(get: '/images/1').to route_to('images#show', id: '1')
     end
 
     it 'routes to #create' do
@@ -15,16 +15,15 @@ RSpec.describe ImagesController, type: :routing do
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/images/1').to route_to('images#update', :id => '1')
+      expect(put: '/images/1').to route_to('images#update', id: '1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/images/1').to route_to('images#update', :id => '1')
+      expect(patch: '/images/1').to route_to('images#update', id: '1')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/images/1').to route_to('images#destroy', :id => '1')
+      expect(delete: '/images/1').to route_to('images#destroy', id: '1')
     end
-
   end
 end

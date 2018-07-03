@@ -7,7 +7,7 @@ RSpec.describe AddressesController, type: :routing do
     end
 
     it 'routes to #show' do
-      expect(get: '/addresses/1').to route_to('addresses#show', :id => '1')
+      expect(get: '/addresses/1').to route_to('addresses#show', id: '1')
     end
 
     it 'routes to #create' do
@@ -15,16 +15,15 @@ RSpec.describe AddressesController, type: :routing do
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/addresses/1').to route_to('addresses#update', :id => '1')
+      expect(put: '/addresses/1').to route_to('addresses#update', id: '1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/addresses/1').to route_to('addresses#update', :id => '1')
+      expect(patch: '/addresses/1').to route_to('addresses#update', id: '1')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/addresses/1').to route_to('addresses#destroy', :id => '1')
+      expect(delete: '/addresses/1').to route_to('addresses#destroy', id: '1')
     end
-
   end
 end
