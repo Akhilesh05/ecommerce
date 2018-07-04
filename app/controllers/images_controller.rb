@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[show update destroy]
   before_action :set_product

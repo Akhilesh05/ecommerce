@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy]
   before_action :set_brand, if: proc { params[:brand_id].present? }
