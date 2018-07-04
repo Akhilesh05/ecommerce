@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy]
+  before_action :set_brand, if: proc { params[:brand_id].present? }
 
   # GET /products
   def index
-    @products = Product.all
+    @products = subject.all
 
     render json: @products
   end
@@ -15,7 +16,7 @@ class ProductsController < ApplicationController
 
   # POST /products
   def create
-    @product = Product.new(product_params)
+    @product = subject.new(product_params)
 
     if @product.save
       render json: @product, status: :created, location: @product
@@ -40,13 +41,21 @@ class ProductsController < ApplicationController
 
   private
 
+  def set_brand
+    @brand = Brand.find(params[:brand_id])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_product
-    @product = Product.find(params[:id])
+    @product = subject.find(params[:id])
+  end
+
+  def subject
+    (@brand&.products || Product)
   end
 
   # Only allow a trusted parameter "white list" through.
   def product_params
-    params.require(:product).permit(:brand_id, :name, :description)
+    params.require(:product).permit(:name, :description)
   end
 end

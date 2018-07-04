@@ -1,9 +1,10 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[show update destroy]
+  before_action :set_product
 
   # GET /images
   def index
-    @images = Image.all
+    @images = @product.images
 
     render json: @images
   end
@@ -15,10 +16,10 @@ class ImagesController < ApplicationController
 
   # POST /images
   def create
-    @image = Image.new(image_params)
+    @image = @product.images.new(image_params)
 
     if @image.save
-      render json: @image, status: :created, location: @image
+      render json: @image, status: :created, location: [@product, @image]
     else
       render json: @image.errors, status: :unprocessable_entity
     end
@@ -40,13 +41,17 @@ class ImagesController < ApplicationController
 
   private
 
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_image
-    @image = Image.find(params[:id])
+    @image = @product.images.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def image_params
-    params.require(:image).permit(:product_id, :name, :url)
+    params.require(:image).permit(:name, :url)
   end
 end
