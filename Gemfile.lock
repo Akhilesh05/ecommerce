@@ -52,6 +52,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
+    cancancan (2.2.0)
     case_transform (0.2)
       activesupport
     coderay (1.1.2)
@@ -184,6 +185,7 @@ DEPENDENCIES
   active_model_serializers
   bootsnap (>= 1.1.0)
   byebug
+  cancancan
   database_cleaner
   dotenv-rails
   factory_bot_rails
