@@ -1,9 +1,10 @@
 class PriceChangesController < ApplicationController
   before_action :set_price_change, only: %i[show update destroy]
+  before_action :set_product
 
   # GET /price_changes
   def index
-    @price_changes = PriceChange.all
+    @price_changes = @product.price_changes
 
     render json: @price_changes
   end
@@ -15,10 +16,12 @@ class PriceChangesController < ApplicationController
 
   # POST /price_changes
   def create
-    @price_change = PriceChange.new(price_change_params)
+    @price_change = @product.price_changes.new(price_change_params)
 
     if @price_change.save
-      render json: @price_change, status: :created, location: @price_change
+      render  json: @price_change,
+              status: :created,
+              location: [@product, @price_change]
     else
       render json: @price_change.errors, status: :unprocessable_entity
     end
@@ -40,13 +43,17 @@ class PriceChangesController < ApplicationController
 
   private
 
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_price_change
-    @price_change = PriceChange.find(params[:id])
+    @price_change = @product.price_changes.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def price_change_params
-    params.require(:price_change).permit(:product_id, :value)
+    params.require(:price_change).permit(:value)
   end
 end

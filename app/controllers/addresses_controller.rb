@@ -1,9 +1,10 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: %i[show update destroy]
+  before_action :set_user
 
   # GET /addresses
   def index
-    @addresses = Address.all
+    @addresses = @user.addresses
 
     render json: @addresses
   end
@@ -15,10 +16,10 @@ class AddressesController < ApplicationController
 
   # POST /addresses
   def create
-    @address = Address.new(address_params)
+    @address = @user.addresses.new(address_params)
 
     if @address.save
-      render json: @address, status: :created, location: @address
+      render json: @address, status: :created, location: [@user, @address]
     else
       render json: @address.errors, status: :unprocessable_entity
     end
@@ -40,9 +41,13 @@ class AddressesController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_address
-    @address = Address.find(params[:id])
+    @address = @user.addresses.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -53,8 +58,7 @@ class AddressesController < ApplicationController
       :line2,
       :zip_code,
       :city,
-      :country,
-      :user_id
+      :country
     )
   end
 end
