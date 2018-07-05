@@ -14,7 +14,7 @@ class User < ApplicationRecord
     self.password_digest = digest.hexdigest
   end
 
-  def verify_password(password)
+  def password_valid?(password)
     digest = Digest::SHA2.new(512)
     digest << password << password_salt
     password_digest == digest.hexdigest
