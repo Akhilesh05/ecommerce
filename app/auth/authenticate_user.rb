@@ -2,7 +2,9 @@
 
 class AuthenticateUser
   def initialize(email, password)
-    raise ExceptionHandler::AuthenticationError, 'invalid credentials' if email.nil? || password.nil?
+    if email.nil? || password.nil?
+      raise ExceptionHandler::AuthenticationError, 'invalid credentials'
+    end
     @email = email
     @password = password
   end
