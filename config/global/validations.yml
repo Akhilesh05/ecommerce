@@ -3,3 +3,4 @@ default:
     # https://gist.github.com/pmarreck/4c5f1076498da1a86062
     password: !ruby/regexp /((?:(?=.*[a-z])(?=.*[A-Z])(?=.*\W)|(?=.*\d)(?=.*[A-Z])(?=.*\W)|(?=.*\d)(?=.*[a-z])(?=.*\W)|(?=.*\d)(?=.*[a-z])(?=.*[A-Z])).*)/x
     email: !ruby/regexp /.@.+\../
+    mobile_number: !ruby/regexp /\A\d{8}\z/

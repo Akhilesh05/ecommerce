@@ -23,6 +23,10 @@ RSpec.describe User, type: :model do
   it { should validate_uniqueness_of(:email).case_insensitive }
   it { should validate_uniqueness_of(:nic_number).case_insensitive.allow_nil }
   it { should validate_uniqueness_of(:passport_country_number).case_insensitive.allow_nil }
+  it { should allow_value('59876543').for(:mobile_number) }
+  it { should_not allow_value('5987654').for(:mobile_number) }
+  it { should_not allow_value('598765432').for(:mobile_number) }
+  it { should_not allow_value('5987654A').for(:mobile_number) }
   it { should allow_value('Password01').for(:password) }
   it { should_not allow_value('password01').for(:password) }
   it { should allow_value('user@example.com').for(:email) }
