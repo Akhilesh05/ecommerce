@@ -6,16 +6,17 @@ class User < ApplicationRecord
   # Associations
   has_many :addresses, dependent: :destroy
   # Validations
-  validates :first_name, :last_name, :email, :password_digest, :mobile_number,
-            presence: true
-  validates :first_name, :last_name, length: { within: 2..50 }
+  validates :password_digest, presence: true
+  validates :first_name, :last_name, presence: true, length: { within: 2..50 }
   validates :mobile_number,
+            presence: true,
             length: { is: 8 },
             format: { with: Global.validations.regexp.mobile_number }
   validates :nic_number, length: { is: 14, allow_nil: true }
   validates :passport_country_number, length: { maximum: 20 }
   validates :nationality, length: { is: 2, allow_nil: true }
   validates :email,
+            presence: true,
             length: { maximum: 100 },
             uniqueness: { case_sensitive: false },
             format: { with: Global.validations.regexp.email }
