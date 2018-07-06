@@ -3,5 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # Associations
+  it { should have_many(:products).dependent(:destroy) }
+  # Validations
+  it { should validate_presence_of(:name) }
+  it { should validate_length_of(:name).is_at_most(50) }
 end
