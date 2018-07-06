@@ -5,6 +5,29 @@
 # one by one as the offenses are removed from the code base.
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+  #  - 'db/**/*'
+
+Rails:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/HookArgument:
+  Exclude:
+    - 'spec/rails_helper.rb'
+
+RSpec/ImplicitExpect:
+  Exclude:
+    - 'spec/models/**/*'
 
 # Offense count: 37
 # Cop supports --auto-correct.
@@ -95,7 +118,6 @@ Style/Documentation:
 # Cop supports --auto-correct.
 Style/ExpandPathArguments:
   Exclude:
-    - 'bin/**/*'
     - 'spec/rails_helper.rb'
 
 # Offense count: 50
@@ -107,13 +129,10 @@ Style/FrozenStringLiteralComment:
     - 'db/schema.rb'
     - 'db/seeds.rb'
     - 'db/migrate/*.rb'
-    - 'bin/**/*'
 
 # Offense count: 2
-Style/MixinUsage:
-  Exclude:
-    - 'bin/setup'
-    - 'bin/update'
+#Style/MixinUsage:
+#  Exclude:
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -128,7 +147,6 @@ Style/NumericLiterals:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Exclude:
-    - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'
 
@@ -146,6 +164,5 @@ Metrics/LineLength:
   Max: 100
   Exclude:
     - 'spec/rails_helper.rb'
-    - 'bin/**/*'
     - 'config/**/*'
     - 'db/**/*'

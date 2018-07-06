@@ -19,9 +19,12 @@ RSpec.describe User, type: :model do
   it { should validate_length_of(:passport_country_number).is_at_most(20) }
   it { should validate_length_of(:nationality).is_equal_to(2) }
   it { should validate_length_of(:email).is_at_most(100) }
+  it { should validate_length_of(:password).is_at_least(8) }
   it { should validate_uniqueness_of(:email).case_insensitive }
   it { should validate_uniqueness_of(:nic_number).case_insensitive.allow_nil }
   it { should validate_uniqueness_of(:passport_country_number).case_insensitive.allow_nil }
+  it { should allow_value('Password01').for(:password) }
+  it { should_not allow_value('password01').for(:password) }
   it { should allow_value('user@example.com').for(:email) }
   it { should_not allow_value('user@example').for(:email) }
 end

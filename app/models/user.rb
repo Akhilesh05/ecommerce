@@ -13,7 +13,9 @@ class User < ApplicationRecord
   validates :nic_number, length: { is: 14, allow_nil: true }
   validates :passport_country_number, length: { maximum: 20 }
   validates :nationality, length: { is: 2, allow_nil: true }
-  validates :email, format: /.@.+\../
+  validates :email, format: { with: /.@.+\../ }
+  validates :password, length: { minimum: 8, allow_nil: true }
+  validates :password, format: { with: Global.fields.password_regexp, allow_nil: true }
   validates :email, uniqueness: { case_sensitive: false }
   validates :nic_number,
             :passport_country_number,
