@@ -31,3 +31,4 @@
 
 en:
   hello: "Hello world"
+  password_invalid: "must contain 3 of the following 4: a lowercase letter, an uppercase letter, a digit, a non-word character or symbol"
