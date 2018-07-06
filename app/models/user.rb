@@ -1,33 +1,27 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  attr_accessor :password
+  has_secure_password
 
   # Associations
   has_many :addresses, dependent: :destroy
   # Validations
   validates :first_name, :last_name, :email, :password_digest, :mobile_number, presence: true
-  validates :first_name, :last_name, length: { minimum: 2 }
+  validates :first_name, :last_name, length: { within: 2..50 }
   validates :mobile_number, length: { is: 8 }
-  validates :email, uniqueness: { case_sensitive: false }
+  validates :email, length: { maximum: 100 }
+  validates :nic_number, length: { is: 14, allow_nil: true }
+  validates :passport_country_number, length: { maximum: 20 }
+  validates :nationality, length: { is: 2, allow_nil: true }
   validates :email, format: /.@.+\../
+  validates :email, uniqueness: { case_sensitive: false }
   validates :nic_number,
             :passport_country_number,
             uniqueness: { case_sensitive: false, allow_nil: true }
   # Hooks
-  before_validation :digest_password, if: proc { password.present? }
   # Scopes
 
-  def digest_password
-    self.password_salt = SecureRandom.uuid
-    digest = Digest::SHA2.new(512)
-    digest << password << password_salt
-    self.password_digest = digest.hexdigest
-  end
-
-  def password_valid?(password)
-    digest = Digest::SHA2.new(512)
-    digest << password << password_salt
-    password_digest == digest.hexdigest
+  def password_valid?(unencrypted_password)
+    authenticate(unencrypted_password) == self
   end
 end

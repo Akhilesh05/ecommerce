@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_03_074228) do
+ActiveRecord::Schema.define(version: 2018_07_06_063007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string "full_name", limit: 100
     t.string "line1"
     t.string "line2"
     t.string "zip_code", limit: 20
@@ -25,6 +24,9 @@ ActiveRecord::Schema.define(version: 2018_07_03_074228) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mobile_number", limit: 8
+    t.string "first_name", limit: 50
+    t.string "last_name", limit: 50
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -68,8 +70,7 @@ ActiveRecord::Schema.define(version: 2018_07_03_074228) do
     t.string "nationality", limit: 2
     t.string "mobile_number", limit: 8
     t.string "email", limit: 100
-    t.string "password_digest", limit: 128
-    t.string "password_salt", limit: 64
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
