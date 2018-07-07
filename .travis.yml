@@ -5,3 +5,4 @@ before_script:
   - psql -c 'CREATE DATABASE ecommerce_test' -U postgres
 script:
   - bundle exec rubocop -P
+  - bundle exec rspec -fd
