@@ -3,3 +3,5 @@ rvm:
   - 2.5
 before_script:
   - psql -c 'CREATE DATABASE ecommerce_test' -U postgres
+script:
+  - rubocop -P
