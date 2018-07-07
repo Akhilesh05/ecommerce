@@ -4,3 +4,4 @@ default:
     password: !ruby/regexp /((?:(?=.*[a-z])(?=.*[A-Z])(?=.*\W)|(?=.*\d)(?=.*[A-Z])(?=.*\W)|(?=.*\d)(?=.*[a-z])(?=.*\W)|(?=.*\d)(?=.*[a-z])(?=.*[A-Z])).*)/x
     email: !ruby/regexp /.@.+\../
     mobile_number: !ruby/regexp /\A\d{8}\z/
+    url: !ruby/regexp /\Ahttps?:\/\/[A-Za-z0-9-]+\.[A-Za-z0-9-]/
