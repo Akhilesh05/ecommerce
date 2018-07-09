@@ -11,6 +11,8 @@ class JsonWebToken
   def self.decode(token)
     payload = JWT.decode(token, HMAC_SECRET)[0]
     HashWithIndifferentAccess.new payload
+  rescue JWT::ExpiredSignature => e
+    raise ExceptionHandler::ExpiredToken, "expired token #{e.message}"
   rescue JWT::DecodeError => e
     raise ExceptionHandler::InvalidToken, "invalid token #{e.message}"
   end

@@ -2,12 +2,32 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
-  describe 'GET /users' do
-    pending
-    # it 'works! (now write some real specs)' do
-    #   get users_path
-    #   expect(response).to have_http_status(:ok)
-    # end
+RSpec.describe UsersController, type: :request do
+  subject { response }
+
+  let(:user) { create(:user) }
+  let(:headers) { valid_headers.except(:Authorization) }
+  let(:valid_credentials) do
+    { email: user.email, password: user.password }
+  end
+  let(:invalid_credentials) do
+    { email: user.email, password: "fake#{user.password}" }
+  end
+
+  describe 'POST #authenticate' do
+    context 'when request valid' do
+      before { post authenticate_users_path, params: valid_credentials, as: :json }
+
+      it { is_expected.to have_http_status :ok }
+      it 'responds with auth_token' do
+        expect(json_response[:auth_token]).not_to be_nil
+      end
+    end
+
+    context 'when request invalid' do
+      before { post authenticate_users_path, params: invalid_credentials, as: :json }
+
+      it { is_expected.not_to have_http_status :ok }
+    end
   end
 end

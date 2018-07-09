@@ -30,6 +30,9 @@ RSpec/ImplicitExpect:
   Exclude:
     - 'spec/models/**/*'
 
+RSpec/NestedGroups:
+  Max: 4
+
 # Offense count: 37
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
