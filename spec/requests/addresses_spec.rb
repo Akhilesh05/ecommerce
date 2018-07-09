@@ -7,6 +7,7 @@ RSpec.describe 'Addresses', type: :request do
 
   let(:user) { User.first }
   let(:addresses) { user.addresses }
+  let(:address) { addresses.first }
   let(:num_addresses) { 5 }
 
   before do
@@ -29,19 +30,45 @@ RSpec.describe 'Addresses', type: :request do
            as: :json
     end
 
+    it { expect { perform_request }.to change(user.addresses, :count).by 1 }
     it do
       perform_request
       is_expected.to have_http_status :created
     end
-    it { expect { perform_request }.to change(user.addresses, :count).by(1) }
   end
 
-  describe 'GET /user/:id/addresses/:id' do
-    before { get user_address_path(user, addresses.first), headers: valid_auth_header }
+  describe 'GET /users/:id/addresses/:id' do
+    before { get user_address_path(user, address), headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
     it 'has the address information' do
-      expect(json_response[:line1]).to eq addresses.first.line1
+      expect(json_response[:line1]).to eq address.line1
+    end
+  end
+
+  describe 'PATCH /users/:id/addresses/:id' do
+    let(:line2) { Faker::Address.street_name }
+
+    before do
+      patch user_address_path(user, address),
+            params: address.as_json.merge('line2' => line2),
+            headers: valid_auth_header,
+            as: :json
+    end
+
+    it { is_expected.to have_http_status :ok }
+    it 'reflects new patched update' do
+      expect(address.reload.line2).to eq line2
+    end
+  end
+
+  describe 'DELETE /users/:id/addresses/:id' do
+    let(:perform_request) { delete user_address_path(user, address), headers: valid_auth_header }
+
+    it { expect { perform_request }.to change(user.addresses, :count).by(-1) }
+    it do
+      perform_request
+      is_expected.to have_http_status :no_content
     end
   end
 end
