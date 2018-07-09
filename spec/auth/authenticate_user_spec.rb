@@ -9,8 +9,14 @@ RSpec.describe AuthenticateUser do
     context 'when valid credentials' do
       subject(:auth_object) { described_class.new(user.email, user.password) }
 
+      let(:decoded_data) { JsonWebToken.decode(auth_object.token) }
+
       it 'returns a token' do
         expect(auth_object.token).not_to be_nil
+      end
+
+      it 'has correct user.id when decoded' do
+        expect(decoded_data[:user_id]).to eq user.id
       end
     end
 
