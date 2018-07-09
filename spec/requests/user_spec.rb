@@ -5,22 +5,24 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   subject { response }
 
-  describe 'POST /users' do
-    subject(:req) do
-      post users_path, params: user.as_json, as: :json
-      response
-    end
+  let(:user) { User.first }
 
+  before { create :user }
+
+  describe 'POST /users' do
+    let(:perform_request) do
+      post users_path, params: user.as_json, as: :json
+    end
     let(:user) { build :user }
 
-    it { expect { req }.to change(User, :count).by(1) }
-
-    it { is_expected.to have_http_status :created }
+    it { expect { perform_request }.to change(User, :count).by(1) }
+    it do
+      perform_request
+      is_expected.to have_http_status :created
+    end
   end
 
   describe 'GET /users/:id' do
-    let(:user) { create :user }
-
     before { get user_path(user), headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
@@ -30,12 +32,11 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'PATCH /users/:id' do
-    let(:user) { create :user }
     let(:new_name) { Faker::Name.first_name }
 
     before do
       patch user_path(user),
-            params: user.as_json.merge(first_name: new_name),
+            params: user.as_json.merge('first_name' => new_name),
             headers: valid_auth_header,
             as: :json
     end
@@ -47,14 +48,12 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'DELETE /users/:id' do
-    before { create :user }
-
-    let(:user) { User.first }
+    let(:perform_request) { delete user_path(user), headers: valid_auth_header }
 
     it do
-      expect do
-        delete user_path(user), headers: valid_auth_header
-      end.to change(User, :count).by(-1)
+      perform_request
+      is_expected.to have_http_status :success # instead of :no_content
     end
+    it { expect { perform_request }.to change(User, :count).by(-1) }
   end
 end
