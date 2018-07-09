@@ -18,9 +18,7 @@ RSpec.describe 'Addresses', type: :request do
     before { get user_addresses_path(user), headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
-    it "consists of 5 addresses" do
-      expect(json_response.length).to eq num_addresses
-    end
+    it { expect(json_response.length).to eq num_addresses }
   end
 
   describe 'POST /users/:id/addresses' do
