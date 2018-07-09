@@ -26,9 +26,9 @@ RSpec/HookArgument:
   Exclude:
     - 'spec/rails_helper.rb'
 
-RSpec/ImplicitExpect:
-  Exclude:
-    - 'spec/models/**/*'
+#RSpec/ImplicitExpect:
+#  Exclude:
+#    - 'spec/models/**/*'
 
 RSpec/NestedGroups:
   Max: 4

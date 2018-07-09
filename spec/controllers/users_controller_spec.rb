@@ -39,8 +39,6 @@ RSpec.describe UsersController, type: :controller do
 
   let(:user) { create(:user) }
 
-  let(:headers) { valid_headers.except(:Authorization) }
-
   let(:valid_credentials) do
     { email: user.email, password: user.password }
   end

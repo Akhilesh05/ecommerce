@@ -9,9 +9,9 @@ module ExceptionHandler
   class ExpiredToken < StandardError; end
 
   included do
-    rescue_from ExceptionHandler::InvalidToken, with: :four_twenty_two
-    rescue_from ExceptionHandler::MissingToken, with: :four_twenty_two
-    rescue_from ExceptionHandler::ExpiredToken, with: :four_twenty_two
+    rescue_from ExceptionHandler::InvalidToken, with: :unauthorized_request
+    rescue_from ExceptionHandler::MissingToken, with: :unauthorized_request
+    rescue_from ExceptionHandler::ExpiredToken, with: :unauthorized_request
     rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized_request
     rescue_from CanCan::AccessDenied, with: :forbidden_request
     rescue_from ActiveRecord::RecordNotFound, with: :four_o_four
@@ -28,7 +28,7 @@ module ExceptionHandler
     render json: { message: error.message }, status: :unprocessable_entity
   end
 
-  # JSON response with message; Status code 401 - Unauthorized
+  # TODO: Add WWW-Authenticate header
   def unauthorized_request(error)
     render json: { message: error.message }, status: :unauthorized
   end
