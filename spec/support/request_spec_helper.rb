@@ -4,6 +4,6 @@
 module RequestSpecHelper
   # Parse JSON response to ruby hash
   def json_response
-    HashWithIndifferentAccess.new JSON.parse(response.body)
+    { wrapper: JSON.parse(response.body) }.deep_symbolize_keys[:wrapper]
   end
 end

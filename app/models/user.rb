@@ -34,4 +34,8 @@ class User < ApplicationRecord
   def password_valid?(unencrypted_password)
     authenticate(unencrypted_password) == self
   end
+
+  def as_json
+    super.merge('password' => password)
+  end
 end
