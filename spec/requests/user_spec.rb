@@ -52,7 +52,7 @@ RSpec.describe 'Users', type: :request do
 
     it do
       perform_request
-      is_expected.to have_http_status :success # instead of :no_content
+      is_expected.to be_successful # 2xx status code
     end
     it { expect { perform_request }.to change(User, :count).by(-1) }
   end

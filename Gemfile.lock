@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/Akhilesh05/global.git
-  revision: 849dd1f7c22633b0884bb79ad53f905b0ca9219b
-  specs:
-    global (1.0.0)
-      activesupport (>= 2.0)
-
-GIT
   remote: https://github.com/thoughtbot/shoulda-matchers.git
   revision: c0960bd72dd41c4e9bd8b4375254f539776bfe95
   specs:
@@ -89,6 +82,8 @@ GEM
     faker (1.8.7)
       i18n (>= 0.7)
     ffi (1.9.25)
+    global (1.1.0)
+      activesupport (>= 2.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
@@ -223,7 +218,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  global!
+  global
   jwt
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)

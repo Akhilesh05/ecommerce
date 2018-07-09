@@ -30,7 +30,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'active_model_serializers'
 gem 'cancancan'
 # gem 'config' # is an alternative gem to global
-gem 'global', github: 'Akhilesh05/global' # , ref: '849dd1f7c22633b0884bb79ad53f905b0ca9219b'
+gem 'global'
 gem 'jwt'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible

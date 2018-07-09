@@ -68,7 +68,7 @@ RSpec.describe 'Addresses', type: :request do
     it { expect { perform_request }.to change(user.addresses, :count).by(-1) }
     it do
       perform_request
-      is_expected.to have_http_status :success # instead of :no_content
+      is_expected.to be_successful # 2xx status code
     end
   end
 end
