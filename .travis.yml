@@ -1,11 +1,14 @@
 language: ruby
 env:
-  secure: "YtTKbZ4miUUs6A+UNL7+MR/ys7cBbhA/eagDb1KCxkw2Jdqc2GlXF42G4xjl71dvPDjywyrVKxaSIfeRoIGGy4fwzxScm+CND3dlGJ12j1ROTs5pVX9MAaEOplw27GUoYE/J0ASbZhD69impmhm+3hKurAh1r/rKqcLNbTSxNHaKt8FVVIe9W2MLLPg2cZCHTY1R0rAn99X/xNCmY6w+naG8+hwN07m+OLpGFfMqXL7f42SfT+SRTkr1c8KxDjM3l0sp+kvPDih1YVN78m9xNqgmpMSS+0ELege3J0Kl4cqOHujkGn9eK396HfJ8xGVqarZFU3QZVRHDVx+L7T5Fne4Mx9DyEUHZlm7BMVN/EmcR6b2IGglUbl6c7WhH+nnMlIKwU2SYm4Lv4lmPZcWKxyohtkRK1GBoojDxSP/I1mgow77q3jou2vRB1EEzS8paiTg8GQa9lUxxw4EZ7ZGNjNXWaBod55nCirZa/K9fwtVdpfvpqBUphXGaL7DY7DQoQbN/53fI3EwRX62miMsG0MZDmZVwSlVsVf66ZWV1ehivgnRAwCXC4WrbMN8tosWO20eiDAxRRb3y5Oet/tHKDO0GDvO5UchWXQyl19fzWzCmlJXTwgZaKi2UmbzCs6d/QvC9q+ToC6Ojro40H6BIVRUmxBCjQZlsKyQCehSJA1I="
+  - JAT='just a test'
+  - secure: "YtTKbZ4miUUs6A+UNL7+MR/ys7cBbhA/eagDb1KCxkw2Jdqc2GlXF42G4xjl71dvPDjywyrVKxaSIfeRoIGGy4fwzxScm+CND3dlGJ12j1ROTs5pVX9MAaEOplw27GUoYE/J0ASbZhD69impmhm+3hKurAh1r/rKqcLNbTSxNHaKt8FVVIe9W2MLLPg2cZCHTY1R0rAn99X/xNCmY6w+naG8+hwN07m+OLpGFfMqXL7f42SfT+SRTkr1c8KxDjM3l0sp+kvPDih1YVN78m9xNqgmpMSS+0ELege3J0Kl4cqOHujkGn9eK396HfJ8xGVqarZFU3QZVRHDVx+L7T5Fne4Mx9DyEUHZlm7BMVN/EmcR6b2IGglUbl6c7WhH+nnMlIKwU2SYm4Lv4lmPZcWKxyohtkRK1GBoojDxSP/I1mgow77q3jou2vRB1EEzS8paiTg8GQa9lUxxw4EZ7ZGNjNXWaBod55nCirZa/K9fwtVdpfvpqBUphXGaL7DY7DQoQbN/53fI3EwRX62miMsG0MZDmZVwSlVsVf66ZWV1ehivgnRAwCXC4WrbMN8tosWO20eiDAxRRb3y5Oet/tHKDO0GDvO5UchWXQyl19fzWzCmlJXTwgZaKi2UmbzCs6d/QvC9q+ToC6Ojro40H6BIVRUmxBCjQZlsKyQCehSJA1I="
 rvm:
   - 2.5
 before_script:
   - psql -c 'CREATE DATABASE ecommerce_test' -U postgres
   - bundle exec rails db:migrate
+  - echo $RAILS_MASTER_KEY
+  - echo $JAT
 script:
   - bundle exec rspec -fd
   - bundle exec rubocop -P
