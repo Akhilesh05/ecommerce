@@ -14,8 +14,10 @@ RSpec.describe Ability do
 
     it { is_expected.to be_able_to %i[read update destroy], user }
     it { is_expected.to be_able_to :manage, user.addresses.new }
+    it { is_expected.to be_able_to %i[create read destroy], user.orders.new }
     it { is_expected.not_to be_able_to %i[read update destroy], another_user }
     it { is_expected.not_to be_able_to :manage, another_user.addresses.new }
+    it { is_expected.not_to be_able_to %i[create read destroy], another_user.orders.new }
   end
 
   context 'when guest' do

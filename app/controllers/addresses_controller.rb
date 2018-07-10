@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 class AddressesController < ApplicationController
-  load_and_authorize_resource :user
-  load_and_authorize_resource through: :user
-  # before_action :set_address, only: %i[show update destroy]
-  # before_action :set_user
+  load_and_authorize_resource through: :current_user
 
   # GET /addresses
   def index
-    @addresses = @user.addresses
+    @addresses = current_user.addresses
 
     render json: @addresses
   end
@@ -20,10 +17,8 @@ class AddressesController < ApplicationController
 
   # POST /addresses
   def create
-    @address = @user.addresses.new(address_params)
-
     if @address.save
-      render json: @address, status: :created, location: [@user, @address]
+      render json: @address, status: :created, location: @address
     else
       render json: @address.errors, status: :unprocessable_entity
     end
@@ -44,15 +39,6 @@ class AddressesController < ApplicationController
   end
 
   private
-
-  # def set_user
-  #   @user = User.find(params[:user_id])
-  # end
-  #
-  # # Use callbacks to share common setup or constraints between actions.
-  # def set_address
-  #   @address = @user.addresses.find(params[:id])
-  # end
 
   # Only allow a trusted parameter "white list" through.
   def address_params
