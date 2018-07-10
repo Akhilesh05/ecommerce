@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-  load_and_authorize_resource through: :current_user
+  load_and_authorize_resource :address, through: :current_user,
+                                        if: proc { params[:address_id].present? }
+  load_and_authorize_resource through: :address, if: proc { params[:address_id].present? }
+  load_and_authorize_resource through: :current_user, unless: proc { params[:address_id].present? }
 
   # GET /orders
   def index
-    @orders = current_user.orders
+    @orders = (@address || current_user).orders
 
     render json: @orders
   end

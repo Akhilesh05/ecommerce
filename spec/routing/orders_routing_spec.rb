@@ -13,7 +13,7 @@ RSpec.describe OrdersController, type: :routing do
     end
 
     it 'routes to #create' do
-      expect(post: '/orders').to route_to('orders#create')
+      expect(post: '/addresses/1/orders').to route_to('orders#create', address_id: '1')
     end
 
     it 'routes to #destroy' do

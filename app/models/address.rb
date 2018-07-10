@@ -3,6 +3,7 @@
 class Address < ApplicationRecord
   # Associations
   belongs_to :user
+  has_many :orders, dependent: :destroy
   # Validations
   validates :first_name, :last_name, :city, presence: true, length: { within: 2..50 }
   validates :line1, presence: true, length: { minimum: 2 }

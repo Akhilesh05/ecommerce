@@ -5,9 +5,11 @@ Rails.application.routes.draw do
     post '/authenticate', on: :collection, action: :authenticate
   end
 
-  resources :addresses
+  resources :addresses do
+    resources :orders, except: :update
+  end
 
-  resources :orders, except: :update do
+  resources :orders, except: %i[update create] do
     resources :order_lines, except: :update
   end
 
