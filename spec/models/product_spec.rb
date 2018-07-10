@@ -6,7 +6,6 @@ RSpec.describe Product, type: :model do
   describe 'association' do
     it { is_expected.to belong_to(:brand).optional }
     it { is_expected.to have_many(:images).dependent(:destroy) }
-    it { is_expected.to have_many(:price_changes).dependent(:destroy) }
   end
 
   describe 'validations' do
