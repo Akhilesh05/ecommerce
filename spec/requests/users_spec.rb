@@ -29,6 +29,7 @@ RSpec.describe 'Users', type: :request do
     it 'responds with the user information' do
       expect(json_response[:email]).to eq user.email
     end
+    it { is_expected.to match_json_schema :user }
   end
 
   describe 'PATCH /users/:id' do
