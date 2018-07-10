@@ -7,5 +7,6 @@ FactoryBot.define do
     email { Faker::Internet.email }
     mobile_number { Faker::Number.number(8) }
     password { "#{Faker::Internet.password(8, 10)}aA1!" }
+    gender { %w[m f][rand.round] }
   end
 end

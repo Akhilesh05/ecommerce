@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :addresses, dependent: :destroy
   # Validations
   validates :password_digest, presence: true
+  validates :gender, inclusion: { in: %w[m f], allow_nil: true }
   validates :first_name, :last_name, presence: true, length: { within: 2..50 }
   validates :mobile_number,
             presence: true,
@@ -35,7 +36,7 @@ class User < ApplicationRecord
     authenticate(unencrypted_password) == self
   end
 
-  def as_json
-    super.merge('password' => password)
+  def as_json(options = nil)
+    super(options).merge('password' => password)
   end
 end

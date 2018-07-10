@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:password_digest) }
     it { is_expected.to validate_presence_of(:mobile_number) }
+    it { is_expected.to validate_inclusion_of(:gender).in_array(%w[m f]).allow_nil }
     it { is_expected.to validate_length_of(:mobile_number).is_equal_to(8) }
     it { is_expected.to validate_length_of(:first_name).is_at_least(2).is_at_most(50) }
     it { is_expected.to validate_length_of(:last_name).is_at_least(2).is_at_most(50) }
