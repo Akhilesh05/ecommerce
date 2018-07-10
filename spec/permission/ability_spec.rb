@@ -12,13 +12,16 @@ RSpec.describe Ability do
     let(:user) { create :user }
     let(:another_user) { create :user }
 
-    it { is_expected.to be_able_to :manage, user.addresses.new }
     it { is_expected.to be_able_to %i[read update destroy], user }
-    it { is_expected.not_to be_able_to :manage, another_user.addresses.new }
+    it { is_expected.to be_able_to :manage, user.addresses.new }
     it { is_expected.not_to be_able_to %i[read update destroy], another_user }
+    it { is_expected.not_to be_able_to :manage, another_user.addresses.new }
   end
 
   context 'when guest' do
+    let(:another_user) { create :user }
+
     it { is_expected.to be_able_to :create, User.new }
+    it { is_expected.not_to be_able_to %i[read update destroy], another_user }
   end
 end

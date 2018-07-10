@@ -3,9 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :model do
-  # Associations
-  it { is_expected.to have_many(:products).dependent(:destroy) }
-  # Validations
-  it { is_expected.to validate_presence_of(:name) }
-  it { is_expected.to validate_length_of(:name).is_at_most(50) }
+  describe 'associations' do
+    it { is_expected.to have_many(:products).dependent(:destroy) }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(50) }
+  end
 end
