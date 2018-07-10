@@ -26,10 +26,10 @@ RSpec.describe 'Users', type: :request do
     before { get user_path(user), headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
+    it { is_expected.to match_json_schema :user }
     it 'responds with the user information' do
       expect(json_response[:email]).to eq user.email
     end
-    it { is_expected.to match_json_schema :user }
   end
 
   describe 'PATCH /users/:id' do

@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :addresses, dependent: :destroy
+  has_many :orders, dependent: :destroy
   # Validations
   validates :password_digest, presence: true
   validates :gender, inclusion: { in: %w[m f], allow_nil: true }
