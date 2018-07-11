@@ -19,9 +19,8 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-
     if @user.save
+      GenderChangeWorker.perform_in 15.seconds, @user.id
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -59,6 +58,7 @@ class UsersController < ApplicationController
                                  :nationality,
                                  :mobile_number,
                                  :email,
-                                 :password
+                                 :password,
+                                 :gender
   end
 end
