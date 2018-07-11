@@ -1,3 +1,4 @@
-web: bundle exec passenger start -p $PORT --max-pool-size 3
+web: ./passenger-status-service-agent & bundle exec passenger start -p $PORT
 worker: bundle exec sidekiq -t 25
 release: bundle exec rails db:migrate
+dev: bundle exec rails server
