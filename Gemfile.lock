@@ -160,6 +160,7 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.2)
+    puma (3.11.4)
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
@@ -299,6 +300,7 @@ DEPENDENCIES
   passenger
   pg (>= 0.18, < 2.0)
   pry-rails
+  puma (~> 3.11)
   rails (~> 5.2.0)
   rspec-rails (~> 3.7)
   rubocop
