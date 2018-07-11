@@ -41,8 +41,9 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.7'
-  gem 'rubocop'
-  gem 'rubocop-rspec'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubycritic', require: false
 end
 
 group :test do
@@ -51,6 +52,7 @@ group :test do
   gem 'faker'
   gem 'json_matchers'
   gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
+  gem 'simplecov', require: false
   gem 'timecop'
 end
 

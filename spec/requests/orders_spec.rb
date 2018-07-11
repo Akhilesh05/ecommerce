@@ -31,8 +31,12 @@ RSpec.describe 'Orders', type: :request do
   end
 
   describe 'POST /addresses/:id/orders' do
-    before { post address_orders_path(address), headers: valid_auth_header }
+    let(:perform_request) { post address_orders_path(address), headers: valid_auth_header }
 
-    it { is_expected.to have_http_status :created }
+    it do
+      perform_request
+      is_expected.to have_http_status :created
+    end
+    it { expect { perform_request }.to change(address.orders, :count).by 1 }
   end
 end
