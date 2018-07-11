@@ -11,6 +11,9 @@ class Ability
     can :manage, Address do |address|
       address.user == user
     end
+    can %i[create read destroy], Order do |order|
+      order.user == user
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

@@ -58,7 +58,7 @@ RSpec.describe UsersController, type: :controller do
 
       it { is_expected.to respond_with(:ok) }
       it 'responds with auth_token' do
-        expect(json_response[:auth_token]).not_to be_nil
+        expect(json_body[:auth_token]).not_to be_nil
       end
     end
 

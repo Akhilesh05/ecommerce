@@ -11,59 +11,86 @@ RSpec.describe 'Addresses', type: :request do
   let(:num_addresses) { 5 }
 
   before do
-    create :user
-    create_list :address, num_addresses, user_id: user.id
+    create_list(:user, 2).each do |usr|
+      create_list :address, num_addresses, user_id: usr.id
+    end
   end
 
-  describe 'GET /users/:id/addresses' do
-    before { get user_addresses_path(user), headers: valid_auth_header }
+  describe 'GET /addresses' do
+    before { get addresses_path, headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
-    it { expect(json_response.length).to eq num_addresses }
+    it { expect(json_body.length).to eq num_addresses }
   end
 
-  describe 'POST /users/:id/addresses' do
-    let(:perform_request) do
-      post user_addresses_path(user),
-           params: build(:address, user_id: user.id).as_json,
-           headers: valid_auth_header,
-           as: :json
+  describe 'POST /addresses' do
+    context 'when valid' do
+      let(:perform_request) do
+        post addresses_path,
+             params: build(:address, user_id: user.id).as_json.merge('mobile_number' => nil),
+             headers: valid_auth_header,
+             as: :json
+      end
+
+      it { expect { perform_request }.to change(user.addresses, :count).by 1 }
+      it do
+        perform_request
+        is_expected.to have_http_status :created
+      end
     end
 
-    it { expect { perform_request }.to change(user.addresses, :count).by 1 }
-    it do
-      perform_request
-      is_expected.to have_http_status :created
+    context 'when invalid' do
+      before do
+        post addresses_path,
+             params: build(:address, user_id: user.id).as_json.merge('line1' => nil),
+             headers: valid_auth_header,
+             as: :json
+      end
+
+      it { is_expected.to have_http_status :unprocessable_entity }
     end
   end
 
-  describe 'GET /users/:id/addresses/:id' do
-    before { get user_address_path(user, address), headers: valid_auth_header }
+  describe 'GET /addresses/:id' do
+    before { get address_path(address), headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
     it 'has the address information' do
-      expect(json_response[:line1]).to eq address.line1
+      expect(json_body[:line1]).to eq address.line1
     end
   end
 
-  describe 'PATCH /users/:id/addresses/:id' do
-    let(:line2) { Faker::Address.street_name }
+  describe 'PATCH /addresses/:id' do
+    context 'when valid' do
+      let(:line2) { Faker::Address.street_name }
 
-    before do
-      patch user_address_path(user, address),
-            params: address.as_json.merge('line2' => line2),
-            headers: valid_auth_header,
-            as: :json
+      before do
+        patch address_path(address),
+              params: address.as_json.merge('line2' => line2),
+              headers: valid_auth_header,
+              as: :json
+      end
+
+      it { is_expected.to have_http_status :ok }
+      it 'reflects new patched update' do
+        expect(address.reload.line2).to eq line2
+      end
     end
 
-    it { is_expected.to have_http_status :ok }
-    it 'reflects new patched update' do
-      expect(address.reload.line2).to eq line2
+    context 'when invalid' do
+      before do
+        patch address_path(address),
+              params: address.as_json.merge('city' => nil),
+              headers: valid_auth_header,
+              as: :json
+      end
+
+      it { is_expected.to have_http_status :unprocessable_entity }
     end
   end
 
-  describe 'DELETE /users/:id/addresses/:id' do
-    let(:perform_request) { delete user_address_path(user, address), headers: valid_auth_header }
+  describe 'DELETE /addresses/:id' do
+    let(:perform_request) { delete address_path(address), headers: valid_auth_header }
 
     it { expect { perform_request }.to change(user.addresses, :count).by(-1) }
     it do

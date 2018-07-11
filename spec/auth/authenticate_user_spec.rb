@@ -21,12 +21,24 @@ RSpec.describe AuthenticateUser do
     end
 
     context 'when invalid credentials' do
-      subject(:auth_object) { described_class.new(user.email, "fake#{user.password}") }
+      context 'when wrong credentials' do
+        subject(:auth_object) { described_class.new(user.email, "fake#{user.password}") }
 
-      it 'raises an AuthenticationError' do
-        expect do
-          auth_object.token
-        end.to raise_error(ExceptionHandler::AuthenticationError)
+        it 'raises an AuthenticationError' do
+          expect do
+            auth_object.token
+          end.to raise_error(ExceptionHandler::AuthenticationError)
+        end
+      end
+
+      context 'when credentials nil' do
+        subject(:auth_object) { described_class.new(user.email, nil) }
+
+        it 'raises an AuthenticationError' do
+          expect do
+            auth_object.token
+          end.to raise_error(ExceptionHandler::AuthenticationError)
+        end
       end
     end
   end

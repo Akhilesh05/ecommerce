@@ -9,8 +9,12 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
+
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+# gem 'puma', '~> 3.11'
+# We now use passenger as app server!!!
+gem 'passenger'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -32,6 +36,7 @@ gem 'cancancan'
 # gem 'config' # is an alternative gem to global
 gem 'global'
 gem 'jwt'
+gem 'sidekiq'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -41,8 +46,9 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.7'
-  gem 'rubocop'
-  gem 'rubocop-rspec'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubycritic', require: false
 end
 
 group :test do
@@ -50,7 +56,10 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'json_matchers'
-  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
+  gem 'shoulda-matchers',
+      git: 'https://github.com/thoughtbot/shoulda-matchers.git',
+      ref: '0d81aa6'
+  gem 'simplecov', require: false
   gem 'timecop'
 end
 

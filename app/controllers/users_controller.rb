@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def authenticate
     auth = AuthenticateUser.new(user_params[:email], user_params[:password])
-    render json: { auth_token: auth.token }
+    render json: { auth_token: auth.token, user_id: auth.user.id }
   end
 
   # GET /users/1
