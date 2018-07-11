@@ -20,21 +20,34 @@ RSpec.describe 'Addresses', type: :request do
     before { get addresses_path, headers: valid_auth_header }
 
     it { is_expected.to have_http_status :ok }
-    it { expect(json_response.length).to eq num_addresses }
+    it { expect(json_body.length).to eq num_addresses }
   end
 
   describe 'POST /addresses' do
-    let(:perform_request) do
-      post addresses_path,
-           params: build(:address, user_id: user.id).as_json,
-           headers: valid_auth_header,
-           as: :json
+    context 'when valid' do
+      let(:perform_request) do
+        post addresses_path,
+             params: build(:address, user_id: user.id).as_json.merge('mobile_number' => nil),
+             headers: valid_auth_header,
+             as: :json
+      end
+
+      it { expect { perform_request }.to change(user.addresses, :count).by 1 }
+      it do
+        perform_request
+        is_expected.to have_http_status :created
+      end
     end
 
-    it { expect { perform_request }.to change(user.addresses, :count).by 1 }
-    it do
-      perform_request
-      is_expected.to have_http_status :created
+    context 'when invalid' do
+      before do
+        post addresses_path,
+             params: build(:address, user_id: user.id).as_json.merge('line1' => nil),
+             headers: valid_auth_header,
+             as: :json
+      end
+
+      it { is_expected.to have_http_status :unprocessable_entity }
     end
   end
 
@@ -43,23 +56,36 @@ RSpec.describe 'Addresses', type: :request do
 
     it { is_expected.to have_http_status :ok }
     it 'has the address information' do
-      expect(json_response[:line1]).to eq address.line1
+      expect(json_body[:line1]).to eq address.line1
     end
   end
 
   describe 'PATCH /addresses/:id' do
-    let(:line2) { Faker::Address.street_name }
+    context 'when valid' do
+      let(:line2) { Faker::Address.street_name }
 
-    before do
-      patch address_path(address),
-            params: address.as_json.merge('line2' => line2),
-            headers: valid_auth_header,
-            as: :json
+      before do
+        patch address_path(address),
+              params: address.as_json.merge('line2' => line2),
+              headers: valid_auth_header,
+              as: :json
+      end
+
+      it { is_expected.to have_http_status :ok }
+      it 'reflects new patched update' do
+        expect(address.reload.line2).to eq line2
+      end
     end
 
-    it { is_expected.to have_http_status :ok }
-    it 'reflects new patched update' do
-      expect(address.reload.line2).to eq line2
+    context 'when invalid' do
+      before do
+        patch address_path(address),
+              params: address.as_json.merge('city' => nil),
+              headers: valid_auth_header,
+              as: :json
+      end
+
+      it { is_expected.to have_http_status :unprocessable_entity }
     end
   end
 

@@ -38,7 +38,7 @@ RSpec.describe 'Users', type: :request do
     it { is_expected.to have_http_status :ok }
     it { is_expected.to match_json_schema :user }
     it 'responds with the user information' do
-      expect(json_response[:email]).to eq user.email
+      expect(json_body[:email]).to eq user.email
     end
   end
 

@@ -18,7 +18,7 @@ RSpec.describe 'Authentication', type: :request do
 
     it { is_expected.to have_http_status :ok }
     it 'responds with auth_token' do
-      expect(json_response[:auth_token]).not_to be_nil
+      expect(json_body[:auth_token]).not_to be_nil
     end
   end
 
