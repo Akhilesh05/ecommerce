@@ -32,6 +32,7 @@ gem 'cancancan'
 # gem 'config' # is an alternative gem to global
 gem 'global'
 gem 'jwt'
+gem 'sidekiq'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -51,7 +52,9 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'json_matchers'
-  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
+  gem 'shoulda-matchers',
+      git: 'https://github.com/thoughtbot/shoulda-matchers.git',
+      ref: '0d81aa6'
   gem 'simplecov', require: false
   gem 'timecop'
 end
