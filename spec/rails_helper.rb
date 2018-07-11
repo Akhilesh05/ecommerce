@@ -10,6 +10,10 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner'
 require 'json_matchers/rspec'
+require 'sidekiq/testing'
+
+# sidekiq will not use redis, it just pushes the job to an array
+Sidekiq::Testing.fake! # fake is the default mode
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

@@ -1,2 +1,2 @@
 port: 3000
-formation: web=1,worker=1
+formation: dev=1,worker=1
