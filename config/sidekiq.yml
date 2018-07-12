@@ -1,0 +1,6 @@
+:concurrency: 10
+:timeout: 30
+
+production:
+  :concurrency: 25
+  :timeout: 8
