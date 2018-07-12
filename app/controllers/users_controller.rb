@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
   def authenticate
     auth = AuthenticateUser.new(user_params[:email], user_params[:password])
-    GenderChangeWorker.perform_in 15.seconds, auth.user.id
     render json: { auth_token: auth.token, user_id: auth.user.id }
   end
 
@@ -21,6 +20,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     if @user.save
+      EmailWorker.perform_async @user.id
       render json: @user, status: :created, location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
