@@ -1,0 +1,5 @@
+#email_job:
+#  cron: '* * * * *'
+#  class: 'EmailWorker'
+#  args:
+#    - 32 # user if
