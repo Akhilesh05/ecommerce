@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/Akhilesh05/sidekiq-cron.git
-  revision: fc93845a936886c7d51d7ac235dc647a408da300
-  ref: fc93845
+  revision: a475b81ecc9088f21ec230c69a009b0209b32a5b
+  ref: a475b81
   specs:
     sidekiq-cron (1.0.0)
       fugit (~> 1.1)
