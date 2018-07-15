@@ -36,7 +36,7 @@ gem 'global'
 gem 'jwt'
 gem 'rolify'
 gem 'sidekiq'
-gem 'sidekiq-cron', github: 'Akhilesh05/sidekiq-cron'
+gem 'sidekiq-cron', github: 'Akhilesh05/sidekiq-cron', ref: 'fc93845'
 gem 'slim-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
