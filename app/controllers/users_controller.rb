@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   skip_before_action :authorize, only: %i[authenticate create]
 
   def authenticate
-    auth = AuthenticateUser.new(user_params[:email], user_params[:password])
+    auth = AuthenticateUser.new user_params[:email], user_params[:password]
     render json: { auth_token: auth.token, user_id: auth.user.id }
   end
 

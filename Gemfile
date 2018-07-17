@@ -59,9 +59,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'json_matchers'
-  gem 'shoulda-matchers',
-      git: 'https://github.com/thoughtbot/shoulda-matchers.git',
-      ref: '0d81aa6'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers', ref: '0d81aa6'
   gem 'simplecov', require: false
   gem 'timecop'
 end
