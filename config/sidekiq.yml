@@ -1,6 +1,8 @@
 :concurrency: 10
 :timeout: 20
 :verbose: true
+:poll_interval: 15
+:cron_history_size: 25
 
 production:
   :concurrency: 5

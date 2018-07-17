@@ -30,6 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'active_model_serializers'
+gem 'baby_squeel'
 gem 'cancancan'
 # gem 'config' # is an alternative gem to global
 gem 'global'
