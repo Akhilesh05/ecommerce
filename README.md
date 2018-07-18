@@ -1,5 +1,5 @@
-[![Build Status](https://semaphoreci.com/api/v1/projects/d4af878a-e5e6-46a8-a56a-c3fe2e8b6cc3/2098591/badge.svg)](https://semaphoreci.com/akhile/ecommerce)
-[![Coverage Status](https://coveralls.io/repos/bitbucket/akhile/ecommerce/badge.svg)](https://coveralls.io/bitbucket/akhile/ecommerce)
+[![Build Status](https://semaphoreci.com/api/v1/akhilesh05/ecommerce/branches/master/badge.svg)](https://semaphoreci.com/akhilesh05/ecommerce)
+[![Coverage Status](https://coveralls.io/repos/github/Akhilesh05/ecommerce/badge.svg?branch=master)](https://coveralls.io/github/Akhilesh05/ecommerce?branch=master)
 
 # README
 
