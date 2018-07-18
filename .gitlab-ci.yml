@@ -1,5 +1,11 @@
 services:
   - postgres:latest
+  - ruby:2.5.1
+
+variables:
+  POSTGRES_HOST: postgres
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
 
 before_script:
   - apt-get update -qq && apt-get install -y -qq nodejs
