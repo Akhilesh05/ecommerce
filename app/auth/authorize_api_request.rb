@@ -7,8 +7,8 @@ class AuthorizeApiRequest
 
   def user
     @user ||= User.find(decoded_token[:user_id])
-  rescue ActiveRecord::RecordNotFound => e
-    raise ExceptionHandler::InvalidToken, "invalid token #{e.message}"
+  rescue ActiveRecord::RecordNotFound => error
+    raise ExceptionHandler::InvalidToken, "invalid token #{error.message}"
   end
 
   def decoded_token
