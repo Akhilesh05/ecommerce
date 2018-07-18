@@ -1,6 +1,7 @@
+image: ruby:2.5.1
+
 services:
   - postgres:latest
-  - ruby:2.5.1
 
 variables:
   POSTGRES_HOST: postgres
