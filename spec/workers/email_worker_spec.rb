@@ -3,5 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe EmailWorker, type: :worker do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user) { create :user }
+
+  before do
+    Sidekiq::Testing.inline!
+    allow(UserMailer).to receive(:with).and_call_original
+    EmailWorker.perform_async user.id
+  end
+
+  it { expect(UserMailer).to have_received(:with).with(user: user) }
 end

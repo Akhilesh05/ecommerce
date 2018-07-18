@@ -16,10 +16,17 @@ RSpec.describe 'Users', type: :request do
       end
       let(:user) { build :user }
 
-      it { expect { perform_request }.to change(User, :count).by(1) }
+      it { expect { perform_request }.to change(User, :count).by 1 }
+      it { expect { perform_request }.to change(EmailWorker.jobs, :size).by 1 }
       it do
         perform_request
         is_expected.to have_http_status :created
+      end
+      it do
+        allow(EmailWorker).to receive(:perform_async).and_call_original
+        perform_request
+        expect(EmailWorker)
+          .to have_received(:perform_async).with(User.find_by(email: user.email).id)
       end
     end
 
