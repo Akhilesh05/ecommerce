@@ -54,9 +54,23 @@ RSpec.describe 'Addresses', type: :request do
   describe 'GET /addresses/:id' do
     before { get address_path(address), headers: valid_auth_header }
 
-    it { is_expected.to have_http_status :ok }
-    it 'has the address information' do
-      expect(json_body[:line1]).to eq address.line1
+    context 'when valid' do
+      it { is_expected.to have_http_status :ok }
+      it 'has the address information' do
+        expect(json_body[:line1]).to eq address.line1
+      end
+    end
+
+    context 'when accessing other user\'s address' do
+      let(:address) { User.last.addresses.first }
+
+      it { is_expected.to have_http_status :not_found }
+    end
+
+    context 'when does not exist' do
+      let(:address) { 1_000 }
+
+      it { is_expected.to have_http_status :not_found }
     end
   end
 

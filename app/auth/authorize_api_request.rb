@@ -16,7 +16,7 @@ class AuthorizeApiRequest
   end
 
   def token
-    return @token ||= @authorization_header.split(' ').last if @authorization_header.present?
-    raise ExceptionHandler::MissingToken, 'missing token'
+    raise ExceptionHandler::MissingToken, 'missing token' if @authorization_header.blank?
+    @token ||= @authorization_header.split(' ').last
   end
 end
