@@ -20,11 +20,8 @@ class OrdersController < ApplicationController
 
   # POST /orders
   def create
-    if @order.save
-      render json: @order, status: :created, location: @order
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
+    @order.save
+    render json: @order, status: :created, location: @order
   end
 
   # DELETE /orders/1
