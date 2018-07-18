@@ -15,11 +15,11 @@
 # gem 'pg'
 #
 default: &default
-  host: 127.0.0.1
+  host: <%= ENV['POSTGRES_HOST'] || '127.0.0.1' %>
   adapter: postgresql
   encoding: unicode
-  password: postgres
-  username: postgres
+  password: <%= ENV['POSTGRES_PASSWORD'] || 'postgres' %>
+  username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
