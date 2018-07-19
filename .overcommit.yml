@@ -18,9 +18,11 @@
 PreCommit:
   RuboCop:
     enabled: true
+    command: [bundle, exec, rubocop, -p]
 PrePush:
   RSpec:
     enabled: true
+    command: [bundle, exec, rails, spec]
 
 #    on_warn: fail # Treat all warnings as failures
 #
