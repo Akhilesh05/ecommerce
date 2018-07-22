@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe EmailWorker, type: :worker do
   let(:user) { create :user }
 
-  # before { Sidekiq::Testing.inline! }
+  before { Sidekiq::Testing.inline! }
 
   describe '.perform' do
     before do
